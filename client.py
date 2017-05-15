@@ -8,13 +8,14 @@ logging.basicConfig(level=logging.INFO)
 
 service_path = "coap://[fe80::68c0:6d50:52ae:432a%lowpan0]/temperature"
 
-async def client():
-    protocol = await Context.create_client_context()
+@asyncio.coroutine
+def client():
+    protocol = yield from Context.create_client_context()
 
     request = Message(code=GET, uri=service_path)
 
     try:
-        response = await protocol.request(request).response
+        response = yield from protocol.request(request).response
     except Exception as e:
         print('Failed to fetch resource:')
         print(e)
