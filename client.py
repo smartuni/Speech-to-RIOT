@@ -20,6 +20,7 @@ async def client():
         print(e)
     else:
         print('Result: %s\n%r'%(response.code, response.payload))
+        return response.payload
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(client())
