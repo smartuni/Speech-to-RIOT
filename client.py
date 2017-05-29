@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 async def main():
     protocol = await Context.create_client_context()
 
-    request = Message(code=GET, uri='coap://[fe80::7890:6d6b:4cff:4322%lowpan0]/temperature')
+    request = Message(code=GET, uri='coap://[fe80::7890:6d6b:4cff:4322%lowpan0]/.well-known/core', mtype=NON)
 
     try:
         response = await protocol.request(request).response
