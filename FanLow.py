@@ -11,7 +11,7 @@ for line in file:
 
 
 def handle(text, mic, profile):
-    setFan.setFan(hostname, 0, "LOW")
+    p = Popen(["python3", "/home/pi/jasper-client/client/modules/setFan.py", hostname, 0, "LOW"], stdout=PIPE, bufsize=1)
     mic.say("Okay, I am turning the fan to a low frequency")
 
 
