@@ -22,6 +22,7 @@ def scanIps():
 
     return ips
 
+
 async def main(ip):
     protocol = await Context.create_client_context()
 
@@ -35,8 +36,35 @@ async def main(ip):
     else:
         return response.payload
 
+
+def writeToHostFans(ip, endpoint):
+    regex = r"<\/fans\/0>,<\/fans\/1>"
+    matches = re.finditer(regex, str(result.stdout))
+
+    for matchNum, match in enumerate(matches):
+        matchNum += 1
+        match = match.group()
+        if match is not None:
+            f = open("hostnamesFans.json", "w")
+            f.write('{ "fan" : "' + ip + '"')
+            f.close()
+
+def writeToHostTemperature(ip, endpoint):
+    regex = r"<\/temperature>"
+    matches = re.finditer(regex, str(result.stdout))
+
+    for matchNum, match in enumerate(matches):
+        matchNum += 1
+        match = match.group()
+        if match is not None:
+            f = open("hostnamesTemperature.json", "w")
+            f.write('{ "temperature" : "' + ip + '"')
+            f.close()
+
 ipset = scanIps()
 print(ipset)
 for ip in ipset:
     result = asyncio.get_event_loop().run_until_complete(main(ip))
     print(str(result) + ' \n')
+    writeToHostFans(ip, str(result))
+    writeToHostTemperature(ip, str(result))
