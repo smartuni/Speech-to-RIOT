@@ -1,0 +1,13 @@
+import re
+
+WORDS = ["SCAN", "FOR", "DEVICES"]
+
+
+def handle(text, mic, profile):
+    p = Popen(["python3", "/home/pi/jasper-client/client/modules/Scanner.py"], stdout=PIPE, bufsize=1)
+    mic.say("Okay, I have updated the hostlists.")
+
+
+def isValid(text):
+    return bool(re.search(r'\bSCAN FOR DEVICES\b', text, re.IGNORECASE))
+
