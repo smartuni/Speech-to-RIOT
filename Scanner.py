@@ -39,7 +39,7 @@ async def main(ip):
 
 def writeToHostFans(ip, endpoint):
     regex = r"<\/fans\/0>,<\/fans\/1>"
-    matches = re.finditer(regex, str(result.stdout))
+    matches = re.finditer(regex, endpoint)
 
     for matchNum, match in enumerate(matches):
         matchNum += 1
@@ -51,7 +51,7 @@ def writeToHostFans(ip, endpoint):
 
 def writeToHostTemperature(ip, endpoint):
     regex = r"<\/temperature>"
-    matches = re.finditer(regex, str(result.stdout))
+    matches = re.finditer(regex, endpoint)
 
     for matchNum, match in enumerate(matches):
         matchNum += 1
