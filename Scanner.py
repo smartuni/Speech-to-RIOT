@@ -26,7 +26,7 @@ def scanIps():
 async def main(ip):
     protocol = await Context.create_client_context()
 
-    request = Message(code=GET, uri='coap://[' + ip + '%lowpan0]/.well-known/core', mtype=NON)
+    request = Message(code=GET, uri='coap://[' + ip + '%lowpan0]/.well-known/core')
 
     try:
         response = await protocol.request(request).response
