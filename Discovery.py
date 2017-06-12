@@ -1,5 +1,7 @@
 import re
 
+from subprocess import Popen, PIPE
+
 WORDS = ["SCAN", "FOR", "DEVICES"]
 
 
