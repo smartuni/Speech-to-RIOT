@@ -1,10 +1,12 @@
 import subprocess, re
 def scanIps():
     ips = set()
-    result = subprocess.run(['ping', '-c', '4', 'localhost'], stdout=subprocess.PIPE)
-    regex = r"\d* bytes from (\d*.\d*.\d*.\d): icmp_seq=\d* ttl=\d* time=\d*.\d* ms"
+    result = subprocess.run(['ping6', '-c', '1', 'ff02::1%lowpan0'], stdout=subprocess.PIPE)
+
+    regex = r"\d* bytes from ([0-9,a-f]*::[0-9,a-f]*:[0-9,a-f]*:[0-9,a-f]*:[0-9,a-f]*): icmp_seq=\d* ttl=\d* time=\d*.\d*"
 
     matches = re.finditer(regex, str(result.stdout))
+    print(str(result.stdout))
 
     for matchNum, match in enumerate(matches):
         matchNum = matchNum + 1
