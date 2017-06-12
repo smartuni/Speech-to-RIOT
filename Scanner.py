@@ -1,4 +1,9 @@
 import subprocess, re
+import asyncio
+
+from aiocoap import *
+
+
 def scanIps():
     ips = set()
     result = subprocess.run(['ping6', '-c', '1', 'ff02::1%lowpan0'], stdout=subprocess.PIPE)
@@ -13,10 +18,35 @@ def scanIps():
 
         for groupNum in range(0, len(match.groups())):
             groupNum = groupNum + 1
-            ip=match.group(groupNum)
+            ip = match.group(groupNum)
             print("{group}".format(group=match.group(groupNum)))
             ips.add(ip)
 
     return ips
 
+
 print(scanIps())
+
+
+async def main(ip):
+    protocol = await Context.create_client_context()
+
+    request = Message(code=GET, uri='coap://[' + ip + ']/.well-known/core', mtype=NON)
+
+    try:
+        response = await protocol.request(request).response
+    except Exception as e:
+        print('Failed to fetch resource:')
+        print(e)
+    else:
+        print(response.payload)
+        return response.payload
+
+
+if __name__ == "__main__":
+    asyncio.get_event_loop().run_until_complete(main())
+
+ipset = scanIps()
+for ip in ipset:
+    result = main(ip)
+    print(result + ' \n')
