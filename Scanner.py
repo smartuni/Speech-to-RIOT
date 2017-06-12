@@ -46,7 +46,7 @@ def writeToHostFans(ip, endpoint):
         match = match.group()
         if match is not None:
             f = open("hostnamesFans.json", "w")
-            f.write('{ "fan" : "' + ip + '"')
+            f.write('{ "fan" : "' + ip + '"}')
             f.close()
 
 def writeToHostTemperature(ip, endpoint):
@@ -58,7 +58,7 @@ def writeToHostTemperature(ip, endpoint):
         match = match.group()
         if match is not None:
             f = open("hostnamesTemperature.json", "w")
-            f.write('{ "temperature" : "' + ip + '"')
+            f.write('{ "temperature" : "' + ip + '"}')
             f.close()
 
 ipset = scanIps()
