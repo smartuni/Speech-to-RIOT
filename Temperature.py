@@ -25,7 +25,7 @@ def handle(text, mic, profile):
     print "loading json"
     temperature_as_json = json.loads(temperature_as_string)
     print "json loaded"
-    temperature_as_int = temperature_as_json['temperature']
+    temperature_as_int = temperature_as_json["temperature"]
     temperature_rounded = round((temperature_as_int/100.0), 2)
     print temperature_rounded
     mic.say("This room has a Temperature of %s degrees" % temperature_rounded)

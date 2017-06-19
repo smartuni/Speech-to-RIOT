@@ -6,7 +6,7 @@ from aiocoap import *
 
 def scanIps():
     ips = set()
-    result = subprocess.run(['ping6', '-c', '5', 'ff02::1%lowpan0'], stdout=subprocess.PIPE)
+    result = subprocess.run(['ping6', '-i', '1', '-c', '5', 'ff02::1%lowpan0'], stdout=subprocess.PIPE)
 
     regex = r"\d* bytes from ([0-9,a-f]*::[0-9,a-f]*:[0-9,a-f]*:[0-9,a-f]*:[0-9,a-f]*): icmp_seq=\d* ttl=\d* time=\d*.\d*"
 
@@ -46,7 +46,7 @@ def writeToHostFans(ip, endpoint):
         match = match.group()
         if match is not None:
             f = open("hostnamesFans.json", "w")
-            f.write('{ "fan" : "' + ip + '"}')
+            f.write('{ "fans" : "' + ip + '"}')
             f.close()
 
 def writeToHostTemperature(ip, endpoint):
@@ -66,5 +66,6 @@ print(ipset)
 for ip in ipset:
     result = asyncio.get_event_loop().run_until_complete(main(ip))
     print(str(result) + ' \n')
-    writeToHostFans(ip, str(result))
     writeToHostTemperature(ip, str(result))
+    writeToHostFans(ip, str(result))
+

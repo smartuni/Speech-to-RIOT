@@ -1,19 +1,20 @@
 import re
-import setFan
 import json
+
+from subprocess import Popen, PIPE
 
 WORDS = ["FAN", "OFF"]
 
-file = open("hostnamesFans.json")
-for line in file:
-    content = json.loads(line)
-    hostname = content["fans"]
-
 
 def handle(text, mic, profile):
-    setFan.setFan(hostname, 0, "OFF")
+    file = open("hostnamesFans.json")
+    for line in file:
+        content = json.loads(line)
+        hostname = content["fans"]
+
+    p = Popen(["python3", "/home/pi/jasper-client/client/modules/setFan.py", hostname, "0", "OFF"], stdout=PIPE, bufsize=1)
     mic.say("Okay, I am turning the fan off")
 
 
 def isValid(text):
-    return bool(re.search(r'\bFAN\b', text, re.IGNORECASE))
+    return bool(re.search(r'\bFAN OFF\b', text, re.IGNORECASE))

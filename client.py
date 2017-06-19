@@ -1,14 +1,19 @@
 import logging
 import asyncio
+import json
 
 from aiocoap import *
 
 logging.basicConfig(level=logging.INFO)
+file = open("hostnamesTemperature.json")
+for line in file:
+    content = json.loads(line)
+    hostname = content["temperature"]
 
 async def main():
     protocol = await Context.create_client_context()
 
-    request = Message(code=GET, uri='coap://[fe80::7890:6d6b:4cff:4322%lowpan0]/temperature', mtype=NON)
+    request = Message(code=GET, uri='coap://[' + hostname + '%lowpan0]/temperature', mtype=NON)
 
     try:
         response = await protocol.request(request).response
