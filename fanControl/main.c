@@ -23,7 +23,7 @@
 
 #define MAIN_QUEUE_SIZE (4)
 #include "timex.h"
-#define STEPS (1000U)
+#define STEPS (750U)
 #define FREQU (1000U)
 #define MODE PWM_LEFT
 
@@ -40,10 +40,10 @@ int pwmMedium(int argc) {
 	printf("Medium main \n");
 	switch(argc) {
 	case 1:
-		pwm_set(PWM_DEV(1), 1, 600); // duty cycle
+		pwm_set(PWM_DEV(1), 1, 700); // duty cycle
 		break;
 	case 2:
-		pwm_set(PWM_DEV(1), 2, 600);	
+		pwm_set(PWM_DEV(1), 2, 700);	
 		break;
 	default:
 		printf("Function Medium fan: not known fan number");
@@ -60,10 +60,10 @@ static int pwmMediumCmd(int argc, char **argv) {
 		int pwmNr = atoi(argv[1]);
 		switch(pwmNr) {
 		case 1:
-			pwm_set(PWM_DEV(1), 1, 600);
+			pwm_set(PWM_DEV(1), 1, 700);
 			break;
 		case 2:
-			pwm_set(PWM_DEV(1), 2, 600);	
+			pwm_set(PWM_DEV(1), 2, 700);	
 			break;
 		default:
 			printf("Function Medium fan: not known fan number");
@@ -79,10 +79,10 @@ static int pwmMediumCmd(int argc, char **argv) {
 int pwmLow(int argc) {
 	switch(argc) {
 	case 1:
-		pwm_set(PWM_DEV(1), 1, 300);
+		pwm_set(PWM_DEV(1), 1, 400);
 		break;
 	case 2:
-		pwm_set(PWM_DEV(1), 2, 300);	
+		pwm_set(PWM_DEV(1), 2, 400);	
 		break;
 	default:
 		printf("Function Low fan: not known fan number");
@@ -99,10 +99,10 @@ static int pwmLowCmd(int argc, char **argv) {
 		int pwmNr = atoi(argv[1]);
 		switch(pwmNr) {
 		case 1:
-			pwm_set(PWM_DEV(1), 1, 300);
+			pwm_set(PWM_DEV(1), 1, 400);
 			break;
 		case 2:
-			pwm_set(PWM_DEV(1), 2, 300);	
+			pwm_set(PWM_DEV(1), 2, 400);	
 			break;
 		default:
 			printf("Function Low fan: not known fan number");
@@ -112,16 +112,16 @@ static int pwmLowCmd(int argc, char **argv) {
 }
 
 /*
-	set the specific fan nr. to fast pwm speed.
+	Set the specific fan nr. to fast pwm speed.
 	@param int fan nr.
 */
 int pwmFast(int argc) {	
 	switch(argc) {
 	case 1:
-		pwm_set(PWM_DEV(1), 1, 1000);
+		pwm_set(PWM_DEV(1), 1, 900);
 		break;
 	case 2:
-		pwm_set(PWM_DEV(1), 2, 1000);	
+		pwm_set(PWM_DEV(1), 2, 900);	
 		break;
 	default:
 		printf("Function pwmFast: not known fan number\n");
@@ -139,10 +139,10 @@ static int pwmFastCmd(int argc, char **argv) {
 		printf("Test Pwm Fast\n");
 		switch(pwmNr) {
 		case 1:
-			pwm_set(PWM_DEV(1), 1, 1000);
+			pwm_set(PWM_DEV(1), 1, 900);
 			break;
 		case 2:
-			pwm_set(PWM_DEV(1), 2, 1000);	
+			pwm_set(PWM_DEV(1), 2, 900);	
 			break;
 		default:
 		printf("Function pwmFast: not known fan number\n");
@@ -152,7 +152,7 @@ static int pwmFastCmd(int argc, char **argv) {
 }
 
 /**
-* set the specific fan nr. off
+* Set the specific fan nr. off
 */
 int offFan(int argc) {
 	switch(argc) {
@@ -213,7 +213,7 @@ int main(void) {
             return 1;
         }
         else {
-            printf("Initialized PWM_%i @ %" PRIu32 "Hz\n", i, pwm_Hz);
+            printf("Initialized PWM_%i @ %" PRIu32 "Hz\n", i, pwm_Hz); 
         }
     }
     /* for the thread running the shell */
